@@ -108,7 +108,7 @@ namespace Forum.Controllers
                 Posts = Posts,
                 Opinions = Opinions,
                 Pages = Convert.ToInt32(Math.Round((decimal)TotalPosts / (decimal)PostsPerPage, 0)),
-                CurrentPage = page + 1,
+                CurrentPage = page,
             };
 
             return View(Model);

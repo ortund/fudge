@@ -49,10 +49,11 @@
     <div class="mdl-cell mdl-cell--10-col">
         <div class="paging">
             @{
-//if (ViewBag.CurrentPage != 1)
-//{
-                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect first_page" data-item="1">First</button>
-                //}
+                if (ViewBag.CurrentPage != 1)
+                {
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect first_page" data-item="1">First</button>
+                }
+
                 for (int i = ViewBag.CurrentPage - 3; i <= ViewBag.CurrentPage + 3; i++)
                 {
                     if (i == ViewBag.CurrentPage && i >= 1 && ViewBag.CurrentPage <= Model.Pages)
@@ -64,10 +65,11 @@
                         <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--primary mdl-js-ripple-effect page-@i" data-item="@i">@i</button>
                     }
                 }
-                //if (ViewBag.CurrentPage != Model.Pages)
-                //{
-                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect last_page" data-item="@Model.Pages">Last</button>
-                //}
+
+                if (ViewBag.CurrentPage != Model.Pages)
+                {
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect last_page" data-item="@Model.Pages">Last</button>
+                }
             }
         </div>
     </div>
@@ -189,10 +191,10 @@
     <div class="mdl-cell mdl-cell--10-col">
         <div class="paging">
             @{
-                //if (ViewBag.CurrentPage != 1)
-                //{
-                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect first_page" data-item="1">First</button>
-                //}
+                if (ViewBag.CurrentPage != 1)
+                {
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect first_page" data-item="1">First</button>
+                }
                 for (int i = ViewBag.CurrentPage - 3; i <= ViewBag.CurrentPage + 3; i++)
                 {
                     if (i == ViewBag.CurrentPage && i >= 1 && ViewBag.CurrentPage <= Model.Pages)
@@ -204,10 +206,10 @@
                         <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--primary mdl-js-ripple-effect" data-item="@i">@i</button>
                     }
                 }
-                //if (ViewBag.CurrentPage != Model.Pages)
-                //{
-                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect last_page" data-item="@Model.Pages">Last</button>
-                //}
+                if (ViewBag.CurrentPage != Model.Pages)
+                {
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect last_page" data-item="@Model.Pages">Last</button>
+                }
             }
         </div>
     </div>
