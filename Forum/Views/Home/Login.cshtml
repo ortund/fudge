@@ -1,0 +1,118 @@
+﻿@model Forum.Models.UserLoginViewModel
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    <!-- Wide card with share menu button -->
+    <style>
+        .demo-card-wide.mdl-card {
+            width: 512px;
+        }
+
+        .demo-card-wide > .mdl-card__title {
+            color: #fff;
+            height: 176px;
+            background: url('/Content/Images/lmc_login.jpg') center / cover;
+        }
+
+        .demo-card-wide > .mdl-card__menu {
+            color: #fff;
+        }
+
+        a.login {
+            font-weight: bold;
+        }
+    </style>
+}
+
+@using (Html.BeginForm())
+{
+    if (!String.IsNullOrEmpty(ViewBag.Redirect) && ViewBag.Redirect == "true")
+    {
+        <input type="hidden" id="redir_bool" value="@ViewBag.Redirect" />
+        <input type="hidden" id="redir_type" value="@ViewBag.Type" />
+        <input type="hidden" id="redir_dest" value="@ViewBag.Dest" />
+    }
+    @Html.AntiForgeryToken()
+    <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--4-col"></div>
+        <div class="mdl-cell mdl-cell--4-col">
+            <div id="login">
+                <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+                    <div class="mdl-card__title">
+                        <h2 class="mdl-card__title-text mdl-typography--headline">Log In</h2>
+                    </div>
+                    <div class="mdl-card__supporting-text">
+                        <p>Please log in to continue</p>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="EmailAddress" />
+                            <label class="mdl-textfield__label" for="EmailAddress">Email Address</label>
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="password" id="Password" />
+                            <label class="mdl-textfield__label" for="Password">Password</label>
+                        </div>
+                    </div>
+                    <div class="mdl-card__actions mdl-card--border">
+                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect login">
+                            Log In
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mdl-cell mdl-cell--4-col"></div>
+    </div>
+}
+<script>
+    $("#Password").keypress(function (e) {
+        if (e.which == 13) {//Enter key pressed
+            Login();
+        }
+    });
+    $(".login").on("click", function () {
+        Login();
+    });
+
+    function Login() {
+        $("#p2").show();
+        var EmailAddress = $("#EmailAddress").val();
+        var Password = $("#Password").val();
+
+        console.log("Email Address " + EmailAddress);
+        console.log("Password " + Password);
+
+        var User = {
+            "EmailAddress": EmailAddress, "Password": Password
+        };
+        $.post("/Home/Login", User, function (data) {
+            if (data != true) {
+                showMessage(data.Data.Title, data.Data.Message);
+            }
+            else {
+                var redir_bool = $("#redir_bool").val();
+                if (redir_bool == "true") {
+                    var redir_type = $("#redir_type").val();
+                    var redir_dest = $("#redir_dest").val();
+
+                    console.log("Type = " + redir_type);
+                    console.log("Destination = " + redir_dest);
+
+                    if (redir_type == "thread") {
+                        console.log("Redirecting to THREAD submit form");
+                        window.location.href = "/Thread/New?titleId=" + redir_dest;
+                    }
+                    else {
+                        console.log("Redirecting to POST submit form");
+                        window.location.href = "/Post/New?threadId=" + redir_dest;
+                    }
+                }
+                else {
+                    window.location.href = '@Url.Content("~/")';
+                }
+            }
+        }, "json");
+    }
+
+</script>
+

@@ -1,0 +1,97 @@
+﻿@model Forum.Models.ListThreadsViewModel
+@{
+    ViewBag.Title = Model.TitleName;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- BREADCRUMBS -->
+<div class="mdl-grid breadcrumbs">
+    <div class="mdl-cell mdl-cell--1-col"></div>
+    <div class="mdl-cell mdl-cell--10-col">
+        <i class="material-icons home-icon">home</i> <a href="~/">Fudge</a> <i>&gt;</i><span class="current">@Model.TitleName</span>
+    </div>
+</div>
+
+<!-- THREAD LISTING -->
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--1-col"></div>
+    <div class="mdl-cell mdl-cell--10-col">
+        <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--7-col">
+                <h2 data-item="@Model.TitleId" class="title-name mdl-typography--headline">@Model.TitleName</h2>
+            </div>
+            <div class="mdl-cell mdl-cell--5-col mdl-grid thread-controls">
+                <div class="mdl-cell mdl-cell--7-col">
+                    <input type="text" id="Search" placeholder="Search this forum..." class="form-control" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search this forum...'"  />
+                </div>
+                <div class="mdl-cell mdl-cell--5-col">
+                    @if (Request.Cookies["Fudge"] != null && Convert.ToBoolean(Request.Cookies["Fudge"]["ub"]) == false)
+                    {
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect create_thread">+ Create Thread</button>
+                    }
+                    else if (Request.Cookies["Fudge"] != null && Convert.ToBoolean(Request.Cookies["Fudge"]["ub"]) == true)
+                    {
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect create_thread" disabled>+ Create Thread</button>
+                    }
+                    else
+                    {
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect create_thread">+ Create Thread</button>
+                    }
+                </div>
+            </div>
+        </div> <!-- END LIST HEADER -->
+        @if (Model.Threads.Count() >= 1)
+        { 
+        <div class="threads-list">
+            @foreach (var thread in Model.Threads)
+            {
+                <a href="~/View/Thread/@thread.Id" class="thread-row">
+                    @if (thread.Name.Length > 300)
+                    { 
+                        <span id="name-@thread.Id" class="thread-title">@thread.Name.Substring(0, 90)</span>                        
+                    }
+                    else
+                    {
+                        <span id="name-@thread.Id" class="thread-title">
+                            @thread.Name</span>
+                    }
+                        <div class="mdl-tooltip" for="name-@thread.Id">@thread.Name</div>
+                        <span id="count-@thread.PostCount" class="thread-posts">
+                            <i class="material-icons">question_answer</i> @thread.PostCount
+                        </span>
+                        <div class="mdl-tooltip" for="count-@thread.PostCount">This thread has @thread.PostCount posts</div>
+
+                        <span id="author-@thread.Author" class="thread-author">
+                            <i class="material-icons">account_box</i> @thread.Author
+                        </span>
+                        <div class="mdl-tooltip" for="author-@thread.Author">@thread.Author started this thread</div>
+
+                        <span id="date-@thread.Id" class="thread-date">
+                            @thread.DateString
+                        </span>
+                        <div class="mdl-tooltip" for="date-@thread.Id">This thread was posted on @thread.Date</div>
+</a>
+            }
+        </div>
+        }
+    </div>
+</div>
+
+<script>
+    $("input#Search").keypress(function (e) {
+        if (e.which == 13) {
+            var Query = $(this).val();
+            var Search = { "Query": Query };
+
+            $.post("/Title/Search", Search, function () {
+
+            });
+
+            return false;
+        }
+    });
+    $(".create_thread").on("click", function () {
+        var TitleId = $(".title-name").attr("data-item");
+        location.href = "/Thread/New?titleId=" + TitleId;
+    });
+</script>
+

@@ -1,0 +1,41 @@
+﻿@model List<Forum.Models.HomeViewModel>
+@{
+    ViewBag.Title = "Forums";
+}
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--1-col"></div>
+    <div class="mdl-cell mdl-cell--10-col">
+        @foreach (var obj in Model)
+        {
+            if (obj.CategoryTitles.Count > 1)
+            {
+            <h3 class="mdl-typography--headline">@obj.CategoryName</h3>
+                <div class="mdl-grid">
+                    @foreach (var title in obj.CategoryTitles)
+                    {
+                    <div class="mdl-cell mdl-cell--4-col category-titles">
+                        <a href="~/View/Title/@title.Id" class="mdl-card mdl-shadow--2dp">
+                            <div class="mdl-card__title">
+                                @title.Name
+                            </div>
+                            <div class="mdl-card__supporting-text">
+                                @title.Description
+                            </div>
+                        </a>
+                    </div>
+                    }
+                </div>
+            }
+        }
+    </div>
+    <div class="mdl-cell mdl-cell--1-col"></div>
+</div>
+
+@section Scripts
+{
+    <script>
+        $("h3").on("click", function () {
+            $(this).next(".mdl-grid").toggle(400);
+        });
+    </script>
+}

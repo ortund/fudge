@@ -1,0 +1,309 @@
+﻿body {
+    margin:0;
+    padding:0;
+    min-width: 300px;
+    background: #032d3b;
+    color: #fff;
+}
+#p2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: none;
+}
+#haackroutedebugger { display: none; }
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+table#data {
+    width: 100%;
+}
+table#data tbody tr td {
+    border: 1px solid rgba(255,255,255,.1);
+    margin: 0;
+}
+table#data thead, table#data thead tr {
+    background: rgb(83, 109, 254);
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+}
+table#data th {
+    color: #fff;
+}
+
+/* MDL OVERRIDES */
+.mdl-grid {
+    padding: 0 !important;
+}
+.mdl-layout__header {
+    background-image: url('Images/header-bg.png');
+}
+.mdl-layout__logo-row {
+    min-height: 100px;
+}
+    .mdl-layout__logo-row h1 {
+        width: 200px;
+        margin:0 auto;
+        padding: 20px 0;
+        text-align:center;
+    }
+.mdl-layout__header-row {
+  padding: 0;
+  height:45px !important;
+  justify-content: center;
+}
+
+.mdl-layout__logo-row h1 a, h3.mdl-typography--headline {
+    text-transform:uppercase;
+    margin-bottom:0;
+    margin-left: 15px;
+    text-decoration:none;
+    color: #fff;
+}
+#login .mdl-card__title {
+    padding: 0;
+}
+#login h2.mdl-card__title-text {
+    width: 100%;
+    margin: 0;
+    padding: 10px;
+    background: rgba(0,0,0,.5);
+}
+#login .mdl-textfield__label {
+    color: #808080;
+}
+
+/* FORUM CATEGORY LISTINGS */
+h3.mdl-typography--headline {
+    cursor: pointer;
+}
+.category-titles .mdl-card {
+    margin-right: 10px !important;
+    background-color: rgba(255,255,255,.05);
+    border-radius: 0;
+    height: 150px !important;
+    text-decoration: none;
+}
+.category-titles .mdl-card:hover, .threads-list tr:hover, .threads-list a:hover {
+    background-color: rgba(255,255,255,.1);
+}
+.mdl-layout-title, .mdl-card__title {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+}
+.category-titles .mdl-card .mdl-card__supporting-text {
+    padding-top: 0;
+    color: #fff;
+}
+footer {
+    padding-top: 10px !important;
+    padding-bottom: 20px !important;
+    border-top: 1px solid rgba(125,125,125,.5);
+    background: transparent !important;
+    text-align: center;
+    align-content: center;
+}
+footer a {
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* PAGING */
+.paging {
+    text-align:right;
+}
+.paging button {
+    min-width: 40px !important;
+}
+
+/* THREADS LISTING*/
+.breadcrumbs {
+    background-color: rgba(255,255,255,.05);
+    border-top: 1px solid rgba(255,255,255,.1);
+    border-bottom: 1px solid rgba(255,255,255,.1);
+    color: rgba(255,255,255,.7);
+    text-transform: uppercase;
+}
+.breadcrumbs .home-icon {
+    transform: translateY(7px);
+    margin-right: 0;
+}
+.breadcrumbs a {
+    color: rgba(255,255,255,.7);
+    text-decoration: none;
+}
+.breadcrumbs a, .breadcrumbs span {
+    height: 24px;
+}
+.breadcrumbs a:hover {
+    color: #fff;
+}
+.breadcrumbs i {
+    font-weight: bold;
+    margin: 0 20px;
+}
+.breadcrumbs span.current {
+    color: #fff;
+}
+h2.title-name {
+    color: rgba(255,255,255,.7);
+    font-size: 200%;
+}
+.thread-controls, .thread-controls div {
+    text-align:right;
+}
+.thread-controls-alt {
+    text-align:right;
+    transform:translateY(10px)
+}
+input#Search {
+    height: 32px;
+    padding-left: 5px;
+    border: 1px solid #0f6183;
+    box-shadow: 0 0 0 1px #000;
+    color: #fff;
+    background: #000;
+}
+button.create_thread {
+    font-size: 93%;
+}
+.threads-list a {
+    color: rgba(255,255,255,.7);
+    text-decoration: none;
+    padding: 10px 20px 20px 20px;    
+    background-color: rgba(255,255,255,.05);
+    border-top: 1px solid rgba(255,255,255,.1);
+    display: block;
+    vertical-align: middle;
+}
+.threads-list a span {
+    display: inline-block;
+}
+    .threads-list a span i, .post-data i {
+        transform: translateY(7px);
+        margin-right: 5px;
+    }
+.threads-list a span.thread-title {
+    width: 72%;
+    color: #fff;
+}
+.threads-list a span.thread-author {
+    width: 8%;
+}
+.threads-list a span.thread-posts {
+    width: 6%;
+}
+.threads-list a span.thread-date {
+    width: 10%;
+    text-align:right;
+    padding-right: 20px;
+}
+
+/* THREAD VIEW */
+pre {
+    background: rgba(0,0,255,.1);
+    padding: 5px;
+}
+.post, .post-actions {
+    border-top: 1px solid rgba(255,255,255,.07);
+    background-color: rgba(255,255,255,.05);
+}
+.post-data {
+    border-bottom: 1px solid rgba(255,255,255,.07);
+    padding: 10px 0;
+}
+h3.post-username { margin: 0; }
+.post-data button {
+    margin: 0 5px;
+}
+button.liked { color: #17830f; }
+
+.post-controls {
+    float:right;
+}
+.post-controls:after {
+    clear: both;
+    overflow: hidden;
+}
+.post-content .content p {
+    letter-spacing: 0.5px !important;
+}
+.post .signature {
+    margin-top: 10px;
+    border: 1px solid rgba(255,255,255,0.07);
+    background-color: rgba(255,255,255,0.07);
+}
+blockquote.user-signature {
+    font-size: 90%;
+    border: 0 !important;
+    background-color: transparent !important;
+}
+blockquote.user-signature:before, blockquote.user-signature:after {
+    content: '' !important;
+}
+.post .content blockquote:before { content: '"'; padding-right: 5px; }
+.post .content blockquote {
+    padding-top:0;
+    padding-bottom:0;
+    padding-left: 5px;
+    padding-right: 5px;
+    background-color: rgba(6,107,139,.5);
+}
+.post.content blockquote p {
+    margin: 0;
+    padding: 5px 0 5px 0;
+}
+.post .content blockquote:after { content: none; }
+
+/* POST NEW CONTENT */
+.mdl-textfield {
+    width: 100%;
+    max-width: 700px;
+    display: block;
+}
+.mdl-textfield__input {
+    border-bottom: 1px solid #fff;
+    max-width: 700px;
+}
+.mdl-textfield__label {
+    color: #fff;
+}
+textarea.mdl-textfield__input {
+    background-color: rgba(255,255,255,.05);
+}
+.post-guide {
+    border-top: 1px solid rgba(255,255,255,.5);
+}
+.post-guide p {
+    color: rgba(255,255,255,.7);
+    letter-spacing: 0.5px;
+}
+.post-guide p a {
+    color: rgba(255,255,255,.7);
+    text-decoration: none;
+}
+.post-guide p a:hover {
+    color: #fff;
+}
+.misc-link {
+    cursor: pointer;
+}

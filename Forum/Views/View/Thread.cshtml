@@ -1,0 +1,304 @@
+﻿@model Forum.Models.ThreadPostsViewModel
+@{
+    ViewBag.Title = Model.Thread.Name;
+    ViewBag.Likes = 0;
+    ViewBag.Dislikes = 0;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.CurrentPage = Model.CurrentPage;
+}
+
+<!-- BREADCRUMBS -->
+<div class="mdl-grid breadcrumbs">
+    <div class="mdl-cell mdl-cell--1-col"></div>
+    <div class="mdl-cell mdl-cell--10-col">
+        <i class="material-icons home-icon">home</i> <a href="~/">Fudge</a><i>&gt;</i><a href="~/View/Title/@Model.Thread.Title.Id">@Model.Thread.Title.Name</a><i>&gt;</i><span class="current">
+            @if (Model.Thread.Name.Length >= 30)
+            {
+                @String.Format("{0}...", Model.Thread.Name.Substring(0, 30))
+            }
+            else
+            {
+                @Model.Thread.Name
+            }
+        </span>
+    </div>
+</div>
+
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--1-col"></div>
+    <div class="mdl-cell mdl-cell--10-col">
+        <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--10-col">
+                <h2 data-item="@Model.Thread.Id" class="thread-name mdl-typography--headline">@Model.Thread.Name</h2>
+            </div>
+            <div class="mdl-cell mdl-cell--2-col thread-controls-alt">
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect reply_to_thread"><i class="material-icons">add</i> Reply</button>
+            </div>
+        </div>
+
+        @*<p>
+                Pages = @Model.Pages<br />
+                CurrentPage = @ViewBag.CurrentPage
+            </p>*@
+    </div>
+</div>
+
+<!-- PAGING -->
+<div class="mdl-grid paging">
+    <div class="mdl-cell mdl-cell--1-col"></div>
+    <div class="mdl-cell mdl-cell--10-col">
+        <div class="paging">
+            @{
+//if (ViewBag.CurrentPage != 1)
+//{
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect first_page" data-item="1">First</button>
+                //}
+                for (int i = ViewBag.CurrentPage - 3; i <= ViewBag.CurrentPage + 3; i++)
+                {
+                    if (i == ViewBag.CurrentPage && i >= 1 && ViewBag.CurrentPage <= Model.Pages)
+                    {
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect page-@i" data-item="@i">@i</button>
+                    }
+                    else if (i >= 1 && i <= Model.Pages)
+                    {
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--primary mdl-js-ripple-effect page-@i" data-item="@i">@i</button>
+                    }
+                }
+                //if (ViewBag.CurrentPage != Model.Pages)
+                //{
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect last_page" data-item="@Model.Pages">Last</button>
+                //}
+            }
+        </div>
+    </div>
+</div>
+
+<!-- POSTS -->
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--1-col"></div>
+    <div class="mdl-cell mdl-cell--10-col">
+        @foreach (var Post in Model.Posts)
+        {
+            <div class="mdl-grid post" id="@Post.Id">
+                <!-- USER -->
+                <div class="mdl-grid mdl-cell mdl-cell--3-col">
+                    <div class="mdl-cell mdl-cell--6-col">
+                        <div class="usr-img">
+                            <img src="@Post.User.Avatar" alt="@Post.User.Username" height="75" />
+                        </div>
+                    </div>
+                    <div class="mdl-cell mdl-cell--6-col">
+                        <h6 class="mdl-typography--headline post-username">@Post.User.Username</h6>
+                    </div>
+                </div>
+                <div class="mdl-cell mdl-cell--9-col post-content">
+                    <div class="post-data">
+                        <div class="mdl-grid">
+                            <div class="mdl-cell--6-col">
+                                <span id="date-@Post.Id" class="post-date"><i class="material-icons">date_range</i>@Post.DateString</span>
+                                <div class="mdl-tooltip" for="date-@Post.Id">@Post.CreatedOn</div>
+                            </div>
+                            <!-- Control Panel -->
+                            <div class="mdl-cell--6-col">
+                                <div class="post-controls mdl-grid">
+                                    <div class="mdl-cell--4-col">
+                                        <!-- Likes -->
+                                        <div class="likes">
+                                            @foreach (var Opinion in Model.Opinions)
+                                            {
+                                                if (Post.Id == Opinion.PostId)
+                                                {
+                                                    if (Opinion.Direction) // true if liked, false if disliked
+                                                    {
+                                                        ViewBag.Likes = ViewBag.Likes + 1;
+                                                    }
+                                                }
+                                            }
+                                            <span class="LikesCount">@ViewBag.Likes</span><button data-item="@Post.Id" id="like-@Post.Id" class="mdl-button mdl-js-button mdl-button--icon like_post">
+                                                <i class="material-icons">thumb_up</i>
+                                            </button>
+                                            <div class="mdl-tooltip" for="like-@Post.Id">Like Post</div>
+                                        </div>
+                                        <!-- End Likes -->
+                                    </div>
+                                    <div class="mdl-cell--4-col">
+                                        <!-- Dislikes -->
+                                        <div class="dislikes">
+                                            @foreach (var Opinion in Model.Opinions)
+                                            {
+                                                if (Post.Id == Opinion.PostId)
+                                                {
+                                                    if (!Opinion.Direction)
+                                                    {
+                                                        ViewBag.Dislikes = ViewBag.Dislikes + 1;
+
+                                                    }
+                                                }
+                                            }
+                                            <span class="DislikesCount">@ViewBag.Dislikes</span><button data-item="@Post.Id" id="dislike-@Post.Id" class="mdl-button mdl-js-button mdl-button--icon dislike_post">
+                                                <i class="material-icons">thumb_down</i>
+                                            </button>
+                                            <div class="mdl-tooltip" for="dislike-@Post.Id">Dislike Post</div>
+                                        </div>
+                                        <!-- End Dislikes -->
+                                    </div>
+                                    <div class="mdl-cell--3-col">
+                                        <!-- Reply -->
+                                        <button data-item="@Post.Id" class="mdl-button mdl-js-button mdl-button--icon reply">
+                                            <i class="material-icons">reply</i>
+                                        </button>
+                                        <div class="mdl-tooltip" for="reply">Reply with Quote</div>
+                                        <!-- End Reply -->
+                                    </div>
+                                    <div class="mdl-cell--3-col">
+                                        <!-- Report -->
+                                        <button data-item="@Post.Id" class="mdl-button mdl-js-button mdl-button--icon report">
+                                            <i class="material-icons">warning</i>
+                                        </button>
+                                        <div class="mdl-tooltip" for="report">Report Post</div>
+                                        <!-- End Report -->
+                                    </div>
+                                    <!-- Post Number -->
+                                    <div class="mdl-cell--1-col">
+                                        <span style="padding: 10px; border-left: 1px solid #fff;">#@Post.Id</span>
+                                    </div>
+                                    <!-- End Post Number -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content">
+                        @Html.Raw(Post.Content)
+
+                        @if (!String.IsNullOrEmpty(Post.User.Signature))
+                        {
+                            <div class="signature">
+                                <blockquote class="user-signature">@Post.User.Signature</blockquote>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- PAGING -->
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--1-col"></div>
+    <div class="mdl-cell mdl-cell--10-col">
+        <div class="paging">
+            @{
+                //if (ViewBag.CurrentPage != 1)
+                //{
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect first_page" data-item="1">First</button>
+                //}
+                for (int i = ViewBag.CurrentPage - 3; i <= ViewBag.CurrentPage + 3; i++)
+                {
+                    if (i == ViewBag.CurrentPage && i >= 1 && ViewBag.CurrentPage <= Model.Pages)
+                    {
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect" data-item="@i">@i</button>
+                    }
+                    else if (i >= 1 && i <= Model.Pages)
+                    {
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--primary mdl-js-ripple-effect" data-item="@i">@i</button>
+                    }
+                }
+                //if (ViewBag.CurrentPage != Model.Pages)
+                //{
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect last_page" data-item="@Model.Pages">Last</button>
+                //}
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    $(".reply_to_thread").on("click", function () {
+        var ThreadId = $(".thread-name").attr("data-item");
+        location.href = "/Post/New?threadId=" + ThreadId;
+    });
+
+    $(".paging button").on("click", function () {
+        var ThreadId = $(".thread-name").attr("data-item");
+        var PageNumber = $(this).attr("data-item");
+        location.href = "/View/Thread/" + ThreadId + "?page=" + PageNumber;
+    });
+
+    $(".reply").on("click", function () {
+        var ThreadId = $(".thread-name").attr("data-item");
+        var quote = $(this).attr("data-item");
+        var url = "/Post/New?threadId=" + ThreadId + "&quoted=" + quote;
+        console.log("the requested url is: " + url);
+        location.href = url;
+    })
+
+    $(".like_post").on("click", function () {
+        var PostId = $(this).attr("data-item");
+        var postId = { "postId": PostId };
+
+        $.post("/Post/Like", postId, function (data) {
+            if (data.Data.IsOk) {
+                var Count = @Model.Opinions.Count();
+
+                if (data.Data.Liked) {
+                    console.log("like post #" + PostId);
+                    var NewCount = Count + 1;
+                    $(".LikesCount").html(NewCount);
+                    $(this).addClass("liked");
+                }
+                else {
+                    console.log("unlike post #" + PostId);
+                    var NewCount = Count - 1;
+                    $(".LikesCount").html(NewCount);
+                    $(this).removeClass("liked");
+                }
+            }
+            else {
+                showMessage(data.Data.Title, data.Data.Message);
+            }
+        });
+    });
+    $(".dislike_post").on("click", function () {
+        console.log("Dislike post button clicked");
+        var PostId = $(this).attr("data-item");
+        var postId = { "postId": PostId };
+
+        $.post("/Post/Dislike", PostId, function (data) {
+            if (data.Data.IsOk) {
+                var Count = @Model.Opinions.Count();
+
+                if (!data.Data.Liked) {
+                    console.log("dislike post #" + PostId);
+                    var NewCount = Count + 1;
+                    $(".DislikesCount").html(NewCount);
+                }
+                else {
+                    console.log("undislike post #" + PostId);
+                    var NewCount = Count - 1;
+                    $(".DislikesCount").html(NewCount);
+                }
+            }
+            else {
+                showMessage(data.Data.Title, data.Data.Message);
+            }
+        });
+    });
+    $(".report").on("click", function () {
+        var PostId = $(this).attr("data-item");
+        $.post("/Post/Report", PostId, function (data) {
+            if (data.Data.IsOk && data.Data.Liked) {
+                $(this).closest(".likes").html($(this).closest("dislikes").html() + 1);
+            }
+            else if (data.Data.IsOk && !data.Data.Liked) {
+                $(this).closest(".likes").html($(this).closest("dislikes").html() - 1);
+            }
+            else if (!data.Data.IsOk) {
+                if (data.Data.RequireLogin != null && data.Data.RequireLogin)
+                    window.location = "/Home/Login";
+
+                showMessage(data.Data.Title, data.Data.Message);
+            }
+        });
+    });
+</script>

@@ -1,0 +1,141 @@
+﻿@model Forum.Models.NewThreadViewModel
+@{
+    ViewBag.Title = "Post New Thread";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- BREADCRUMBS -->
+<div class="mdl-grid breadcrumbs">
+    <div class="mdl-cell mdl-cell--1-col"></div>
+    <div class="mdl-cell mdl-cell--10-col">
+        <i class="material-icons home-icon">home</i> <a href="~/">Fudge</a><i>&gt;</i><a href="~/View/Title/@Model.Title.Id">@Model.Title.Name</a><i>&gt;</i><span class="current">Posting a new Thread</span>
+    </div>
+</div>
+
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--1-col"></div>
+    <div class="mdl-cell mdl-cell--10-col">
+        <h2 class="mdl-typography--headline">Post a new Thread</h2>
+
+        <div class="mdl-grid post">
+            <!-- USER -->
+            <div class="mdl-grid mdl-cell mdl-cell--4-col">
+                <div class="mdl-cell mdl-cell--6-col">
+                    <div class="usr-img">
+                        <img src="@Model.User.Avatar" alt="@Model.User.Username" height="75" />
+                    </div>
+                </div>
+                <div class="mdl-cell mdl-cell--6-col">
+                    <h6 class="mdl-typography--headline post-username">@Model.User.Username</h6>
+                </div>
+
+                <div class="post-guide">
+                    <h4 class="mdl-typography--headline">Help</h4>
+                    <p id="link"><span class="misc-link">Formatting Help</span></p>
+                    <div id="guide">
+                        <p>
+                            Fudge use a slighly modified version of <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">Markdown</a> for formatting.<br />
+                            The table below gives you some formatting basics.
+                        </p>
+
+                        <table class="mdl-table mdl-js-table mdl-shadow--2dp">
+                            <thead>
+                                <tr>
+                                    <td class="mdl-data-table__cell--non-numeric">You type:</td>
+                                    <td class="mdl-data-table__cell--non-numeric">You see:</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="mdl-data-table__cell--non-numeric">*italics*</td>
+                                    <td class="mdl-data-table__cell--non-numeric"><i>italics</i></td>
+                                </tr>
+                                <tr>
+                                    <td class="mdl-data-table__cell--non-numeric">**bold**</td>
+                                    <td class="mdl-data-table__cell--non-numeric"><b>bodl</b></td>
+                                </tr>
+                                <tr>
+                                    <td class="mdl-data-table__cell--non-numeric">[link](http://loganyoung.co.za)</td>
+                                    <td class="mdl-data-table__cell--non-numeric"><a href="http://loganyoung.co.za">link</a></td>
+                                </tr>
+                                <tr>
+                                    <td class="mdl-data-table__cell--non-numeric">* item 1<br />
+                                    * item 2<br />
+                                    * item 3</td>
+                                    <td class="mdl-data-table__cell--non-numeric"><ul>
+                                        <li>item 1</li>
+                                        <li>item 2</li>
+                                        <li>item 3</li>
+                                        </ul></td>
+                                </tr>
+                                <tr>
+                                    <td class="mdl-data-table__cell--non-numeric">~~strikethrough~~</td>
+                                    <td class="mdl-data-table__cell--non-numeric"><strike>strikethrough</strike></td>
+                                </tr>
+                                <tr>
+                                    <td class="mdl-data-table__cell--non-numeric">super^script</td>
+                                    <td class="mdl-data-table__cell--non-numeric">super<sup>script</sup></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mdl-cell mdl-cell--8-col post-content">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+
+                @Html.HiddenFor(x => x.Title.Id)
+                @Html.HiddenFor(x => x.User.Id)
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="ThreadName" />
+                    <label class="mdl-textfield__label" for="ThreadName">Title</label>
+                </div>
+
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <textarea class="mdl-textfield__input" type="text" rows="9" id="Content"></textarea>
+                </div>
+            }
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent post_thread">Post Thread</button>
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored cancel_post">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(".post_thread").on("click", function () {
+        PostThread();
+    });
+    $(".cancel_post").on("click", function () {
+        var TitleId = $("#Title_Id").val();
+        location.href = "/View/Title/" + TitleId;
+    });
+
+    function PostThread()
+    {
+        $("#p2").show();
+
+        var TitleId = $("#Title_Id").val();
+        var UserId = $("#User_Id").val();
+        var ThreadName = $("#ThreadName").val();
+        var Content = $("#Content").val();
+
+        var Post = { "TitleId": TitleId, "UserId": UserId, "ThreadName": ThreadName, "Content": Content };
+
+        $.post("/Thread/New", Post, function (data) {
+            if (data.Data.IsOk == true) {
+                var ThreadId = data.Data.ThreadId
+                location.href = "/View/Thread/" + ThreadId;
+            }
+            else
+            {
+                $("#p2").hide();
+                showMessage(data.Data.Title, data.Data.Message);
+            }
+        });
+    }
+</script>

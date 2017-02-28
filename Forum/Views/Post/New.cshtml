@@ -1,0 +1,157 @@
+﻿@model Forum.Models.NewPostViewModel
+@{
+    ViewBag.Title = "Reply to Thread";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- BREADCRUMBS -->
+<div class="mdl-grid breadcrumbs">
+    <div class="mdl-cell mdl-cell--1-col"></div>
+    <div class="mdl-cell mdl-cell--10-col">
+        @if (Model.Thread.Name.Length >= 30)
+        { 
+        <i class="material-icons home-icon">home</i> <a href="~/">Fudge</a><i>&gt;</i><a href="~/View/Title/@Model.Thread.Title.Id">@Model.Thread.Title.Name</a><i>&gt;</i><a href="~/View/Thread/@Model.Thread.Id">@Model.Thread.Name.Substring(0, 30)...</a><i>&gt;</i><span class="current">Replying to a Thread</span>
+        }
+        else
+        {
+            <i class="material-icons home-icon">home</i> <a href="~/">Fudge</a><i>&gt;</i><a href="~/View/Title/@Model.Thread.Title.Id">@Model.Thread.Title.Name</a><i>&gt;</i><a href="~/View/Thread/@Model.Thread.Id">@Model.Thread.Name</a><i>&gt;</i><span class="current">Replying to a Thread</span>
+        }
+    </div>
+</div>
+
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--1-col"></div>
+    <div class="mdl-cell mdl-cell--10-col">
+        <h2 class="mdl-typography--headline">Reply to a Thread</h2>
+
+        <div class="mdl-grid post">
+            <!-- USER -->
+            <div class="mdl-grid mdl-cell mdl-cell--4-col">
+                <div class="mdl-cell mdl-cell--6-col" style="height: 80px !important;">
+                    <div class="usr-img">
+                        <img src="@Model.User.Avatar" alt="@Model.User.Username" height="75" />
+                    </div>
+                </div>
+                <div class="mdl-cell mdl-cell--6-col" style="height: 80px !important;">
+                    <h6 class="mdl-typography--headline post-username">@Model.User.Username</h6>
+                </div>
+                <div class="mdl-cell mdl-cell--12-col post-guide">
+                    <p id="link"><span class="misc-link formatting_help">Formatting Help</span></p>
+                    <div id="guide">
+                        <p>
+                            Fudge use a slighly modified version of <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">Markdown</a> for formatting.<br />
+                            The table below gives you some formatting basics.
+                        </p>
+
+                        <table id="data" class="mdl-table mdl-js-table mdl-shadow--2dp">
+                            <thead>
+                                <tr>
+                                    <td class="mdl-data-table__cell--non-numeric">You type:</td>
+                                    <td class="mdl-data-table__cell--non-numeric">You see:</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="mdl-data-table__cell--non-numeric">*italics*</td>
+                                    <td class="mdl-data-table__cell--non-numeric"><i>italics</i></td>
+                                </tr>
+                                <tr>
+                                    <td class="mdl-data-table__cell--non-numeric">**bold**</td>
+                                    <td class="mdl-data-table__cell--non-numeric"><b>bold</b></td>
+                                </tr>
+                                <tr>
+                                    <td class="mdl-data-table__cell--non-numeric">[link](http://loganyoung.co.za)</td>
+                                    <td class="mdl-data-table__cell--non-numeric"><a href="http://loganyoung.co.za">link</a></td>
+                                </tr>
+                                <tr>
+                                    <td class="mdl-data-table__cell--non-numeric">
+                                        * item 1<br />
+                                        * item 2<br />
+                                        * item 3
+                                    </td>
+                                    <td class="mdl-data-table__cell--non-numeric">
+                                        <ul>
+                                            <li>item 1</li>
+                                            <li>item 2</li>
+                                            <li>item 3</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="mdl-data-table__cell--non-numeric">~~strikethrough~~</td>
+                                    <td class="mdl-data-table__cell--non-numeric"><strike>strikethrough</strike></td>
+                                </tr>
+                                <tr>
+                                    <td class="mdl-data-table__cell--non-numeric">super^script</td>
+                                    <td class="mdl-data-table__cell--non-numeric">super<sup>script</sup></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mdl-cell mdl-cell--8-col post-content">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+
+                    @Html.HiddenFor(x => x.Thread.Id)
+                    @Html.HiddenFor(x => x.User.Id)
+
+
+                    if (Request.QueryString["quoted"] != null && !String.IsNullOrEmpty(Request.QueryString["quoted"])) {
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <textarea class="mdl-textfield__input" type="text" rows="9" id="Content">@String.Format("> {0}", Model.Content)</textarea>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <textarea class="mdl-textfield__input" type="text" rows="9" id="Content"></textarea>
+                        </div>
+                    }
+                }
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent submit_post">Submit Post</button>
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored cancel_post">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(".formatting_help").on("click", function () {
+        $("div#guide").toggle();
+    });
+
+    $(".submit_post").on("click", function () {
+        SubmitPost();
+    })
+    $(".cancel_post").on("click", function () {
+        var ThreadId = $("#Thread_Id").val();
+        location.href = "/View/Thread/" + ThreadId;
+    });
+
+    function SubmitPost()
+    {
+        $("#p2").show();
+
+        var ThreadId = $("#Thread_Id").val();
+        var UserId = $("#User_Id").val();
+        var Content = $("#Content").val();
+
+        var Post = { "ThreadId": ThreadId, "UserId": UserId, "Content": Content };
+
+        $.post("/Post/New", Post, function (data) {
+            if (data.Data.IsOk == true) {
+                var PostId = data.Data.PostId;
+                location.href = "/View/Thread/" + ThreadId + "?page=" + data.Data.PageNumber + "#" + PostId;
+            }
+            else
+            {
+                $("#p2").hide();
+                showMessage(data.Data.Title, data.Data.Message);
+            }
+        });
+    }
+</script>
