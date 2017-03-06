@@ -1,9 +1,6 @@
 ﻿using Forum.Models;
-using HeyRed.MarkdownSharp;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
 using System.Text;
@@ -58,8 +55,6 @@ namespace Forum.Controllers
                 Post Post = new Post
                 {
                     ThreadId = source.ThreadId,
-                    CreatedBy = User.Username,
-                    CreatedOn = DateTime.UtcNow,
                     Thread = Thread,
                     User = User,
                     UserId = source.UserId,

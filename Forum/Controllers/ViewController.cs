@@ -2,9 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Forum.Utility;
 using Humanizer;
 using System.Data.Entity;
 using System.Text.RegularExpressions;
@@ -27,11 +25,11 @@ namespace Forum.Controllers
             List<Thread> DbThreads = new List<Thread>();
             if (page == 1)
             {
-                DbThreads = db.Threads.Where(x => x.TitleId == id && x.Deleted == false).OrderByDescending(x => x.CreatedOn).Take(PostsPerPage).ToList();
+                DbThreads = db.Threads.Where(x => x.TitleId == id).OrderByDescending(x => x.CreatedOn).Take(PostsPerPage).ToList();
             }
             else
             {
-                DbThreads = db.Threads.Where(x => x.TitleId == id && x.Deleted == false).OrderByDescending(x => x.CreatedOn).Take(PostsPerPage).Skip(PostsPerPage * page).ToList();
+                DbThreads = db.Threads.Where(x => x.TitleId == id).OrderByDescending(x => x.CreatedOn).Take(PostsPerPage).Skip(PostsPerPage * page).ToList();
             }
 
             // populate a list of ViewModels containing the threads
@@ -45,7 +43,7 @@ namespace Forum.Controllers
                     Date = Thread.CreatedOn,
                     DateString = Thread.CreatedOn.Humanize(true, DateTime.UtcNow),
                     Name = Thread.Name,
-                    PostCount = db.Posts.Where(x => x.ThreadId == Thread.Id && x.Deleted == false).Count()
+                    PostCount = db.Posts.Where(x => x.ThreadId == Thread.Id).Count()
                 });
             }
 

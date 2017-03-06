@@ -1,8 +1,6 @@
 ﻿using Forum.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Forum.Controllers
@@ -50,7 +48,6 @@ namespace Forum.Controllers
                     Content = source.Content,
                     CreatedBy = Thread.CreatedBy,
                     CreatedOn = Thread.CreatedOn,
-                    Deleted = false,
                     Thread = Thread,
                     ThreadId = Thread.Id,
                     User = db.Users.FirstOrDefault(x => x.Id == Thread.UserId),

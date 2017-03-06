@@ -1,8 +1,7 @@
 namespace Forum.Migrations
 {
-    using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class LoginsAdded : DbMigration
     {
         public override void Up()

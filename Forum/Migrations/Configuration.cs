@@ -1,7 +1,6 @@
 namespace Forum.Migrations
 {
     using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
     using Humanizer;
@@ -53,11 +52,10 @@ namespace Forum.Migrations
                         Bio = "Youtuber, gamer, entrepreneur and animal lover",
                         CreatedBy = "System",
                         CreatedOn = DateTime.UtcNow,
-                        Deleted = false,
-                        EmailAddress = "logan.young@vodamail.co.za",
+                        EmailAddress = "ortund@fudge",
                         FirstName = "Logan",
                         LastName = "Young",
-                        Password = Hashing.CreateHash("Ly@224593"),
+                        Password = Hashing.CreateHash("moomin"),
                         Role = context.Roles.FirstOrDefault(x => x.Id == 1),
                         RoleId = 1,
                         Signature = "Anybody that gets abusive when presented with empirical evidence is driving an agenda you're not aware of.",
@@ -72,11 +70,10 @@ namespace Forum.Migrations
                         Bio = "WoW Elemental Shaman",
                         CreatedBy = "System",
                         CreatedOn = DateTime.UtcNow,
-                        Deleted = false,
-                        EmailAddress = "logan.young87@gmail.com",
+                        EmailAddress = "ilu@fudge.com",
                         FirstName = "Logan",
                         LastName = "Young",
-                        Password = Hashing.CreateHash("Ly@224593"),
+                        Password = Hashing.CreateHash("moomin"),
                         Role = context.Roles.FirstOrDefault(x => x.Id == 1),
                         RoleId = 3,
                         ResetToken = Guid.NewGuid().ToString(),
@@ -138,7 +135,6 @@ namespace Forum.Migrations
                     {
                         CreatedBy = "System",
                         CreatedOn = DateTime.UtcNow,
-                        Deleted = false,
                         Name = "This is an example thread to demonstrate how data will appear on the forums",
                         Title = context.Titles.FirstOrDefault(x => x.Id == 1),
                         TitleId = 1,
@@ -156,7 +152,6 @@ namespace Forum.Migrations
                         Content = "Posts on Fudge use Markdown to format the text so as long as Markdown can do it, you can add **bold text**, *italic text* and basically whatever type of content you want to your posts.",
                         CreatedBy = "System",
                         CreatedOn = DateTime.UtcNow,
-                        Deleted = false,
                         Thread = context.Threads.FirstOrDefault(x => x.Id == 1),
                         ThreadId = 1,
                         User = context.Users.FirstOrDefault(x => x.Id == 1),
@@ -168,7 +163,6 @@ namespace Forum.Migrations
                         Content = "This post is just here to pad the content and demonstrate what the page will look like with multiple posts.",
                         CreatedBy = "System",
                         CreatedOn = DateTime.UtcNow,
-                        Deleted = false,
                         Thread = context.Threads.FirstOrDefault(x => x.Id == 1),
                         ThreadId = 1,
                         User = context.Users.FirstOrDefault(x => x.Id == 1),

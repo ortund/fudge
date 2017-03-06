@@ -14,13 +14,13 @@ namespace Forum.Controllers
     {
         public ActionResult Index()
         {
-            List<Category> Categories = db.Categories.Where(x => x.Deleted == false).ToList();
+            List<Category> Categories = db.Categories.ToList();
             List<Title> Titles = new List<Title>();            
             List<HomeViewModel> Models = new List<HomeViewModel>();
 
             foreach (Category Cat in Categories)
             {
-                Models.Add(new HomeViewModel { CategoryName = Cat.Name, CategoryTitles = db.Titles.Where(x => x.CategoryId == Cat.Id && x.Deleted == false).ToList() });
+                Models.Add(new HomeViewModel { CategoryName = Cat.Name, CategoryTitles = db.Titles.Where(x => x.CategoryId == Cat.Id).ToList() });
             }
 
             return View(Models);
@@ -61,7 +61,7 @@ namespace Forum.Controllers
 
         private bool DoLogin(string emailAddress, string password)
         {
-            var User = db.Users.Include(t => t.Role).Where(x => x.EmailAddress == emailAddress && x.Deleted == false).FirstOrDefault();
+            var User = db.Users.Include(t => t.Role).Where(x => x.EmailAddress == emailAddress).FirstOrDefault();
             //var User = db.Users.Include("UserRole").Where(x => x.EmailAddress == emailAddress && x.Deleted == false).FirstOrDefault();
 
             if (User == null) return false;

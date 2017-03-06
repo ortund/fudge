@@ -1,11 +1,8 @@
 ﻿using Forum.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Web;
 using System.Web.Mvc;
-using Logan.Utilities;
 
 namespace Forum.Controllers
 {
@@ -47,7 +44,9 @@ namespace Forum.Controllers
 
                 if (User != null)
                 {
-                    return SendPasswordReset(User);
+                    //TODO: add in mail send functionality
+                    //return SendPasswordReset(User);
+                    throw (new InvalidOperationException("Some functionality is still being worked on. That function doesn't exist yet."));
                 }
                 else
                 {
@@ -96,19 +95,20 @@ namespace Forum.Controllers
             }
         }
 
-        private JsonResult SendPasswordReset(User user)
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine(String.Format("<p>Hi {0}!</p>", user.Username));
-            sb.AppendLine("<p>We received a request to reset your password. If you sent this, please confirm your request and proceed with the process by clicking on the link below.<br />If this is the first you're hearing of this, just ignore the email and don't worry because nothing has happened on your account yet :)</p>");
-            sb.AppendLine(String.Format("<p><a href=\"http://localhost:50359/Manage/ResetPassword?Token={0}\">http://localhost:50359/Manage/ResetPassword?Token={0}</a></p>", user.ResetToken));
-            sb.AppendLine("<p>See you on the forums!<br />Ortund (Forum Admin)</p>");
+        // TODO Add in email functionality to send email
+        //private JsonResult SendPasswordReset(User user)
+        //{
+        //    StringBuilder sb = new StringBuilder();
+        //    sb.AppendLine(String.Format("<p>Hi {0}!</p>", user.Username));
+        //    sb.AppendLine("<p>We received a request to reset your password. If you sent this, please confirm your request and proceed with the process by clicking on the link below.<br />If this is the first you're hearing of this, just ignore the email and don't worry because nothing has happened on your account yet :)</p>");
+        //    sb.AppendLine(String.Format("<p><a href=\"http://localhost:50359/Manage/ResetPassword?Token={0}\">http://localhost:50359/Manage/ResetPassword?Token={0}</a></p>", user.ResetToken));
+        //    sb.AppendLine("<p>See you on the forums!<br />Ortund (Forum Admin)</p>");
 
-            Mail Mail = new Mail();
-            Mail.SendEmail(user.EmailAddress, "Fudge Forum: Password Reset Requested", sb.ToString(), true);
+        //    Mail Mail = new Mail();
+        //    Mail.SendEmail(user.EmailAddress, "Fudge Forum: Password Reset Requested", sb.ToString(), true);
 
-            return SendResponse(true);
-        }
+        //    return SendResponse(true);
+        //}
         #endregion
     }
 }

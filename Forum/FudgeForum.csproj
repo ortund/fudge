@@ -44,6 +44,10 @@
       <HintPath>..\packages\Humanizer.Core.2.1.0\lib\netstandard1.0\Humanizer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Logan.Utilities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\SourceTree\Logan\Logan.Utilities\bin\Release\Logan.Utilities.dll</HintPath>
+    </Reference>
     <Reference Include="Markdown, Version=2.0.0.0, Culture=neutral, PublicKeyToken=1b320cc08ad5aa89, processorArchitecture=MSIL">
       <HintPath>..\packages\Markdown.2.1.0\lib\net45\Markdown.dll</HintPath>
       <Private>True</Private>
@@ -197,6 +201,8 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\BaseObject.cs" />
+    <Compile Include="Models\BaseUser.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Dislike.cs" />
     <Compile Include="Models\ForumEntities.cs" />
@@ -306,16 +312,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="E:\Development\SourceTree\Logan\Logan.DataFramework\Logan.DataFramework\Logan.DataFramework.csproj">
-      <Project>{e6764d7f-b3cd-4554-b064-daa0bed60d37}</Project>
-      <Name>Logan.DataFramework</Name>
-    </ProjectReference>
-    <ProjectReference Include="E:\Development\SourceTree\Logan\Logan.Utilities\Logan.Utilities.csproj">
-      <Project>{764c442e-0cd6-4646-8aae-24b7c9fa0668}</Project>
-      <Name>Logan.Utilities</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201609011622178_InitialCreate.resx">

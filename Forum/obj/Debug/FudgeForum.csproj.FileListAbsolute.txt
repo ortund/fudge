@@ -171,7 +171,6 @@ E:\Development\Git\fudge\Forum\bin\Antlr3.Runtime.dll
 E:\Development\Git\fudge\Forum\bin\EntityFramework.dll
 E:\Development\Git\fudge\Forum\bin\EntityFramework.SqlServer.dll
 E:\Development\Git\fudge\Forum\bin\Humanizer.dll
-E:\Development\Git\fudge\Forum\bin\Logan.DataFramework.dll
 E:\Development\Git\fudge\Forum\bin\Logan.Utilities.dll
 E:\Development\Git\fudge\Forum\bin\Markdown.dll
 E:\Development\Git\fudge\Forum\bin\Microsoft.AspNet.Identity.Core.dll
@@ -198,7 +197,6 @@ E:\Development\Git\fudge\Forum\bin\System.Web.WebPages.Deployment.dll
 E:\Development\Git\fudge\Forum\bin\System.Web.WebPages.dll
 E:\Development\Git\fudge\Forum\bin\System.Web.WebPages.Razor.dll
 E:\Development\Git\fudge\Forum\bin\WebGrease.dll
-E:\Development\Git\fudge\Forum\bin\Logan.DataFramework.pdb
 E:\Development\Git\fudge\Forum\bin\Logan.Utilities.pdb
 E:\Development\Git\fudge\Forum\bin\Humanizer.pdb
 E:\Development\Git\fudge\Forum\bin\Humanizer.xml

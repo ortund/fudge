@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Web;
 
 namespace Forum.Models
 {
@@ -48,11 +47,11 @@ namespace Forum.Models
                 {
                 new Title { Category = Categories.FirstOrDefault(x => x.Id == 1), Name = "C# Development", Description = "For C# Discussion and Q & A only.", CreatedBy = "System Seed", CreatedOn = DateTime.UtcNow },
                 new Title { Category = Categories.FirstOrDefault(x => x.Id == 1), Name = "VB Development", Description = "Visual Basic discussion and questions.", CreatedBy = "System Seed", CreatedOn = DateTime.UtcNow },
-                new Title { Category = Categories.FirstOrDefault(x => x.Id == 1), Name = "Other Development", Description = "Software development discussion and questions that don't fit other forums.", CreatedBy = "System Seed", CreatedOn = DateTime.UtcNow },
+                new Title { Category = Categories.FirstOrDefault(x => x.Id == 1), Name = "Other Development", Description = "Software development discussion and questions that don't fit other forums.", CreatedOn = DateTime.UtcNow },
                 new Title { Category = Categories.FirstOrDefault(x => x.Id == 2), Name = "World of Warcraft", Description = "Anything that has anything to do with WoW.", CreatedBy = "System Seed", CreatedOn = DateTime.UtcNow },
-                new Title { Category = Categories.FirstOrDefault(x => x.Id == 2), Name = "PC Gaming", Description = "Discuss games, tips, cheats and also ask your pc hardware questions here.", CreatedBy = "System Seed", CreatedOn = DateTime.UtcNow },
-                new Title { Category = Categories.FirstOrDefault(x => x.Id == 2), Name = "Other Gaming", Description = "Can't find a dedicated forum for your topic? Here's the melting pot at your service.", CreatedBy = "System Seed", CreatedOn = DateTime.UtcNow },
-                new Title { Category = Categories.FirstOrDefault(x => x.Id == 3), Name = "Physical Fitness", Description = "Post about your fitness queries or show off your progress.", CreatedBy = "System Seed", CreatedOn = DateTime.UtcNow }
+                new Title { Category = Categories.FirstOrDefault(x => x.Id == 2), Name = "PC Gaming", Description = "Discuss games, tips, cheats and also ask your pc hardware questions here.", CreatedOn = DateTime.UtcNow },
+                new Title { Category = Categories.FirstOrDefault(x => x.Id == 2), Name = "Other Gaming", Description = "Can't find a dedicated forum for your topic? Here's the melting pot at your service.", CreatedOn = DateTime.UtcNow },
+                new Title { Category = Categories.FirstOrDefault(x => x.Id == 3), Name = "Physical Fitness", Description = "Post about your fitness queries or show off your progress.", CreatedOn = DateTime.UtcNow }
                 };
 
                 foreach (Title t in NewTitles)
@@ -99,17 +98,10 @@ namespace Forum.Models
                     Banned = false,
                     BanReason = String.Empty,
                     Bio = String.Empty,
-                    CreatedBy = "System Data Seed",
                     CreatedOn = DateTime.UtcNow,
-                    Deleted = false,
-                    EmailAddress = "logan.young@vodamail.co.za",
-                    FirstName = "Logan",
-                    LastName = "Young",
-                    ModifiedBy = String.Empty,
-                    ModifiedOn = null,
-                    Password = Hashing.CreateHash("Ly@224593"),
+                    EmailAddress = "ortund@fudge.com",
+                    Password = Hashing.CreateHash("moomin"),
                     Role = Roles.FirstOrDefault(x => x.Id == 1),
-                    RoleId = 1,
                     Signature = "Anybody that gets abusive when presented with empirical evidence is driving an agenda you're not aware of.",
                     ResetToken = Guid.NewGuid().ToString(),
                     Username = "Ortund"
