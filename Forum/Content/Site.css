@@ -307,3 +307,19 @@ textarea.mdl-textfield__input {
 .misc-link {
     cursor: pointer;
 }
+
+/* MARKDOWN GUIDE */
+.markdown-code {
+    font-family: monospace;
+    padding: 20px;
+    background: #c0c0c0;
+    color: #333;
+}
+.markdown-output {
+    padding: 20px;
+    background: #fff;
+    color: #000;
+}
+code {
+    backgroun
+}

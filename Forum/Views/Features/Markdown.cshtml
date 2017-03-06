@@ -1,0 +1,153 @@
+﻿
+@{
+    ViewBag.Title = "Markdown";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--1-col"></div>
+    <div class="mdl-cell mdl-cell--10-col">
+        <h2 class="mdl-typography--headline">Formatting with Markdown</h2>
+
+        <p>
+            Fudge uses Markdown for editing. On this page, you'll learn how to use Markdown to style your posts and replies.
+        </p>
+
+        <h3 class="mdl-typography--headline-color-contrast">Examples</h3>
+
+        <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+            <div class="mdl-tabs__tab-bar" style="background: rgba(255, 255, 255, 0.5);">
+                <a href="#text-panel" class="mdl-tabs__tab is-active">Text</a>
+                <a href="#list-panel" class="mdl-tabs__tab">Lists</a>
+                <a href="#headers-panel" class="mdl-tabs__tab">Headers &amp; Quotes</a>
+                <a href="#code-panel" class="mdl-tabs__tab">Code</a>
+            </div>
+
+            <div class="mdl-tabs__panel is-active" id="text-panel">
+                <div class="markdown-code">
+                    You can add **bold** and *italic* text with Markdown. Links to sites like [Google](https://google.com) also work.
+                </div>
+                <div class="markdown-output">
+                    You can add <strong>bold</strong> and <i>italic</i> text with Markdown. Links to sites like <a href="https://google.com" target="_blank">Google</a> also work.
+                </div>
+            </div>
+
+            <div class="mdl-tabs__panel" id="list-panel">
+                <div class="markdown-code">
+                    <p>
+                        If you want a numbered list:
+                    </p>
+                    <p>
+                        1. One<br />
+                        2. Two<br />
+                        3. Three
+                    </p>
+                    <p>
+                        Or you want a list of bullet points:
+                    </p>
+                    <p>
+                        * Start a point with a star<br />
+                        * List this
+                    </p>
+                    <p>
+                        Then again...
+                    </p>
+                    <p>
+                        - You can use dashes as well<br />
+                        - Just add in two spaces to create sub points<br />
+                        - Like this<br />
+                        - and like this
+                    </p>
+                </div>
+                <div class="markdown-output">
+                    <p>
+                        If you want a numbered list:
+                    </p>
+                    <ol>
+                        <li>One</li>
+                        <li>Two</li>
+                        <li>Three</li>
+                    </ol>
+
+                    <p>
+                        Or you want a list of bullet points:
+                    </p>
+                    <ul>
+                        <li>Start a point with a star</li>
+                        <li>Like this</li>
+                    </ul>
+
+                    <p>
+                        Then again...
+                    </p>
+                    <ul>
+                        <li>You can use dashes as well</li>
+                        <li>
+                            Just add in two spaces to create sub points
+                            <ul>
+                                <li>Like this</li>
+                                <li>and like this</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="headers-panel" class="mdl-tabs__panel">
+                <div class="markdown-code">
+                    <p># Structured documents</p>
+                    <p>
+                        Using headers makes your posts a lot more clear. Use the `#` character (up to 6 times on a line) to create headings that get smaller for each `#` character.
+                    </p>
+
+                    <p>
+                        You can also quote something by starting the line with the `&gt;` character
+                    </p>
+                    <p>
+                        > A line that looks like this will be formatted as a blockquote on the page
+                    </p>
+                </div>
+                <div class="markdown-output">
+                    <h1>Structured documents</h1>
+                    <p>
+                        Using headers makes your posts a lot more clear. Use the <code>#</code> character (up to 6 times on a line) to create headings that get smaller for each <code>#</code> character.
+                    </p>
+
+                    <p>
+                        You can also quote something by starting the line with the <code>&gt;</code> character
+                    </p>
+                    <blockquote>A line that looks like this will be formatted as a blockquote on the page</blockquote>
+                </div>
+            </div>
+
+            <div id="code-panel" class="mdl-tabs__panel">
+                <div class="markdown-code">
+                    <p>
+                        If your code is inline with another part of your post, use backticks: `bool example = true` to style your code.
+                    </p>
+                    <p>
+                        If you've got a larger code block that takes up more lines, indent it with 4 spaces:
+                    </p>
+                    <p>
+                        &nbsp;if (isAwesome) {
+                        &nbsp;&nbsp;return true;
+                        &nbsp;}
+                    </p>
+                </div>
+                <div class="markdown-output">
+                    <p>
+                        If your code is inline with another part of your post, use backticks: <code>bool example = true</code> to style your code.
+                    </p>
+                    <p>
+                        If you've got a larger code block that takes up more lines, indent it with 4 spaces:
+                    </p>
+                    <p>
+                        <code>if (isAwesome) {
+    return true;
+}</code>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

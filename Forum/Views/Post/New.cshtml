@@ -27,67 +27,13 @@
         <div class="mdl-grid post">
             <!-- USER -->
             <div class="mdl-grid mdl-cell mdl-cell--4-col">
-                <div class="mdl-cell mdl-cell--6-col" style="height: 80px !important;">
+                <div class="mdl-cell mdl-cell--3-col" style="height: 80px !important;">
                     <div class="usr-img">
                         <img src="@Model.User.Avatar" alt="@Model.User.Username" height="75" />
                     </div>
                 </div>
                 <div class="mdl-cell mdl-cell--6-col" style="height: 80px !important;">
                     <h6 class="mdl-typography--headline post-username">@Model.User.Username</h6>
-                </div>
-                <div class="mdl-cell mdl-cell--12-col post-guide">
-                    <p id="link"><span class="misc-link formatting_help">Formatting Help</span></p>
-                    <div id="guide">
-                        <p>
-                            Fudge use a slighly modified version of <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">Markdown</a> for formatting.<br />
-                            The table below gives you some formatting basics.
-                        </p>
-
-                        <table id="data" class="mdl-table mdl-js-table mdl-shadow--2dp">
-                            <thead>
-                                <tr>
-                                    <td class="mdl-data-table__cell--non-numeric">You type:</td>
-                                    <td class="mdl-data-table__cell--non-numeric">You see:</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="mdl-data-table__cell--non-numeric">*italics*</td>
-                                    <td class="mdl-data-table__cell--non-numeric"><i>italics</i></td>
-                                </tr>
-                                <tr>
-                                    <td class="mdl-data-table__cell--non-numeric">**bold**</td>
-                                    <td class="mdl-data-table__cell--non-numeric"><b>bold</b></td>
-                                </tr>
-                                <tr>
-                                    <td class="mdl-data-table__cell--non-numeric">[link](http://loganyoung.co.za)</td>
-                                    <td class="mdl-data-table__cell--non-numeric"><a href="http://loganyoung.co.za">link</a></td>
-                                </tr>
-                                <tr>
-                                    <td class="mdl-data-table__cell--non-numeric">
-                                        * item 1<br />
-                                        * item 2<br />
-                                        * item 3
-                                    </td>
-                                    <td class="mdl-data-table__cell--non-numeric">
-                                        <ul>
-                                            <li>item 1</li>
-                                            <li>item 2</li>
-                                            <li>item 3</li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="mdl-data-table__cell--non-numeric">~~strikethrough~~</td>
-                                    <td class="mdl-data-table__cell--non-numeric"><strike>strikethrough</strike></td>
-                                </tr>
-                                <tr>
-                                    <td class="mdl-data-table__cell--non-numeric">super^script</td>
-                                    <td class="mdl-data-table__cell--non-numeric">super<sup>script</sup></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
                 </div>
             </div>
 
@@ -113,8 +59,15 @@
                         </div>
                     }
                 }
-                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent submit_post">Submit Post</button>
-                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored cancel_post">Cancel</button>
+                <div class="mdl-grid">
+                    <div class="mdl-cell mdl-cell--6-col">
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent submit_post">Submit Post</button>
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored cancel_post">Cancel</button>
+                    </div>
+                    <div class="mdl-cell mdl-cell--6-col" style="text-align:right;">
+                        @Html.ActionLink("Markdown formatting guide", "Markdown", "Features", null, new { @target = "_blank" })
+                    </div>
+                </div>
             </div>
         </div>
     </div>
