@@ -90,26 +90,29 @@ namespace Forum.Controllers
                 if (!CheckUserCookie()) return CreateResponseMessage(Json(new { IsOk = false, RequireLogin = true }), true);
                 
                 int UserId = Convert.ToInt32(Request.Cookies["Fudge"]["uid"]);
+                
                 Opinion Like = new Opinion()
                 {
-                    Direction = true,
+                    Action = Models.PostAction.Like,
                     PostId = postId,
                     UserId = UserId
                 };
 
-                Opinion PostOpinions = db.Opinions.FirstOrDefault(x => x.PostId == postId && x.UserId == UserId);
-                if (PostOpinions != null && PostOpinions.Direction)
+                Opinion PostOpinion = db.Opinions.FirstOrDefault(x => x.PostId == postId && x.UserId == UserId);
+                if (PostOpinion == null) return CreateResponseMessage(Json(new { IsOk = false }));
+
+                if (PostOpinion.Action == Models.PostAction.Like)
                 {
                     // user has previously Liked the post, remove the Like
                     db.Opinions.Remove(Like);
                     db.SaveChanges();
 
-                    return CreateResponseMessage(Json(new { IsOk = true, PostId = postId, Liked = false }), true);
+                    return CreateResponseMessage(Json(new { IsOk = true, PostId = postId, Action = "like" }), true);
                 }
                 else
                 {
                     db.Opinions.Add(Like);
-                    return CreateResponseMessage(Json(new { IsOk = true, PostId = postId, Liked = true }), true);
+                    return CreateResponseMessage(Json(new { IsOk = true, PostId = postId, Action = "unlike" }), true);
                 }                
             }
             catch (Exception ex)
@@ -126,26 +129,27 @@ namespace Forum.Controllers
                 if (!CheckUserCookie()) return CreateResponseMessage(Json(new { IsOk = false, RequireLogin = true }), true);
 
                 int UserId = Convert.ToInt32(Request.Cookies["Fudge"]["uid"]);
+                
                 Opinion Dislike = new Opinion()
                 {
-                    Direction = false,
+                    Action = Models.PostAction.Dislike,
                     PostId = postId,
                     UserId = UserId
                 };
 
-                Opinion PostOpinions = db.Opinions.FirstOrDefault(x => x.PostId == postId && x.UserId == UserId);
-                if (PostOpinions != null && !PostOpinions.Direction)
+                Opinion PostOpinion = db.Opinions.FirstOrDefault(x => x.PostId == postId && x.UserId == UserId);
+                if (PostOpinion != null && PostOpinion.Action == Models.PostAction.Dislike)
                 {
                     // user has previously Liked the post, remove the Like
                     db.Opinions.Remove(Dislike);
                     db.SaveChanges();
 
-                    return CreateResponseMessage(Json(new { IsOk = true, PostId = postId, Liked = true }), true);
+                    return CreateResponseMessage(Json(new { IsOk = true, PostId = postId, Action = "rdislike" }), true);
                 }
                 else
                 {
                     db.Opinions.Add(Dislike);
-                    return CreateResponseMessage(Json(new { IsOk = true, PostId = postId, Liked = false }), true);
+                    return CreateResponseMessage(Json(new { IsOk = true, PostId = postId, Action = "dislike" }), true);
                 }
             }
             catch (Exception ex)

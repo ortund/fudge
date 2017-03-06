@@ -190,9 +190,9 @@
     <Compile Include="Migrations\201609011850211_LoginsAdded.Designer.cs">
       <DependentUpon>201609011850211_LoginsAdded.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201610241217492_cat-img.cs" />
-    <Compile Include="Migrations\201610241217492_cat-img.Designer.cs">
-      <DependentUpon>201610241217492_cat-img.cs</DependentUpon>
+    <Compile Include="Migrations\201703061501343_UpdatedOpinions.cs" />
+    <Compile Include="Migrations\201703061501343_UpdatedOpinions.Designer.cs">
+      <DependentUpon>201703061501343_UpdatedOpinions.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -248,7 +248,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -320,8 +322,8 @@
     <EmbeddedResource Include="Migrations\201609011850211_LoginsAdded.resx">
       <DependentUpon>201609011850211_LoginsAdded.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610241217492_cat-img.resx">
-      <DependentUpon>201610241217492_cat-img.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201703061501343_UpdatedOpinions.resx">
+      <DependentUpon>201703061501343_UpdatedOpinions.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
@@ -342,7 +344,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50359</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44383/</IISUrl>
+          <IISUrl>http://localhost:44383/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -176,11 +176,13 @@ namespace Forum.Migrations
                         DateString = DateTime.UtcNow.Humanize()
                     }
                 );
+
+                // add Opinions to simulate actions on posts
+                context.Opinions.Add(new Opinion { Action = Models.PostAction.Like, PostId = 1, UserId = 1 });
+                context.Opinions.Add(new Opinion { Action = Models.PostAction.Dislike, PostId = 2, UserId = 1 });
+
                 context.SaveChanges();
             }
-
-            context.Opinions.AddOrUpdate(new Opinion { Direction = true, PostId = 1, UserId = 1 }, new Opinion { Direction = false, PostId = 2, UserId = 1 });
-            context.SaveChanges();
         }
     }
 }

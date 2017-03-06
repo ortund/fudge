@@ -163,4 +163,4 @@ E:\Development\SourceTree\FudgeForum\Forum\obj\Debug\Forum.Migrations.LoginsAdde
 E:\Development\SourceTree\FudgeForum\Forum\obj\Debug\FudgeForum.csproj.GenerateResource.Cache
 E:\Development\SourceTree\FudgeForum\Forum\obj\Debug\Forum.dll
 E:\Development\SourceTree\FudgeForum\Forum\obj\Debug\Forum.pdb
-E:\Development\SourceTree\FudgeForum\Forum\obj\Debug\Forum.Migrations.catimg.resources
+E:\Development\SourceTree\FudgeForum\Forum\obj\Debug\Forum.Migrations.UpdatedOpinions.resources

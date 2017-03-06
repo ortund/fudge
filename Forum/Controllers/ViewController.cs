@@ -113,22 +113,5 @@ namespace Forum.Controllers
 
             return View(Model);
         }
-
-        public ActionResult Test()
-        {
-            Thread Thread = new Thread
-            {
-                CreatedBy = db.Users.FirstOrDefault(x => x.Id == 1).Username,
-                CreatedOn = DateTime.UtcNow,
-                Name = "Example thread to demonstrate how posts will appear",
-                Title = db.Titles.FirstOrDefault(x => x.Id == 1),
-                TitleId = 1,
-                UserId = 1
-            };
-            db.Threads.Add(Thread);
-            db.SaveChanges();
-
-            return RedirectToAction("Title", 1);
-        }
     }
 }

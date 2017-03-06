@@ -30,10 +30,12 @@
         <div class="mdl-grid">
             <div class="mdl-cell mdl-cell--10-col">
                 <h2 data-item="@Model.Thread.Id" class="thread-name mdl-typography--headline">@Model.Thread.Name</h2>
-            </div>
-            <div class="mdl-cell mdl-cell--2-col thread-controls-alt">
+                <div class="mdl-layout-spacer"></div>
                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect reply_to_thread"><i class="material-icons">add</i> Reply</button>
             </div>
+            @*<div class="mdl-cell mdl-cell--2-col thread-controls-alt">
+                
+            </div>*@
         </div>
 
         @*<p>
@@ -110,7 +112,7 @@
                                             {
                                                 if (Post.Id == Opinion.PostId)
                                                 {
-                                                    if (Opinion.Direction) // true if liked, false if disliked
+                                                    if (Opinion.Action == Forum.Models.PostAction.Like) // true if liked, false if disliked
                                                     {
                                                         ViewBag.Likes = ViewBag.Likes + 1;
                                                     }
@@ -125,12 +127,12 @@
                                     </div>
                                     <div class="mdl-cell--4-col">
                                         <!-- Dislikes -->
-                                        <div class="dislikes">
+                                        <div class="dislikes">                                            
                                             @foreach (var Opinion in Model.Opinions)
                                             {
                                                 if (Post.Id == Opinion.PostId)
                                                 {
-                                                    if (!Opinion.Direction)
+                                                    if (Opinion.Action == Forum.Models.PostAction.Dislike)
                                                     {
                                                         ViewBag.Dislikes = ViewBag.Dislikes + 1;
 
@@ -161,7 +163,7 @@
                                         <!-- End Report -->
                                     </div>
                                     <!-- Post Number -->
-                                    <div class="mdl-cell--1-col">
+                                    <div class="mdl-cell--1-col" style="line-height: 32px;">
                                         <span style="padding: 10px; border-left: 1px solid #fff;">#@Post.Id</span>
                                     </div>
                                     <!-- End Post Number -->
@@ -235,6 +237,13 @@
         location.href = url;
     })
 
+    /*
+        Like/Dislike
+        ============
+        If there's already a like or dislike on the post, these functions should remove
+        the current user's activity on the post, effectively returning the post to a
+        neutral state on the user's profile.
+    */
     $(".like_post").on("click", function () {
         var PostId = $(this).attr("data-item");
         var postId = { "postId": PostId };
@@ -243,13 +252,15 @@
             if (data.Data.IsOk) {
                 var Count = @Model.Opinions.Count();
 
-                if (data.Data.Liked) {
+                // the user liked the post, add a like
+                if (data.Data.Action == "like") {
                     console.log("like post #" + PostId);
                     var NewCount = Count + 1;
                     $(".LikesCount").html(NewCount);
                     $(this).addClass("liked");
                 }
-                else {
+                else if (data.Data.Action == "unlike") {
+                    // the user liked the post previously, remove a like
                     console.log("unlike post #" + PostId);
                     var NewCount = Count - 1;
                     $(".LikesCount").html(NewCount);
@@ -270,12 +281,14 @@
             if (data.Data.IsOk) {
                 var Count = @Model.Opinions.Count();
 
-                if (!data.Data.Liked) {
+                // user disliked the post
+                if (data.Data.Action == "dislike") {
                     console.log("dislike post #" + PostId);
                     var NewCount = Count + 1;
                     $(".DislikesCount").html(NewCount);
                 }
-                else {
+                else if (data.Data.Action == "rdislike") {
+                    // user disliked the post previously, remove a dislike
                     console.log("undislike post #" + PostId);
                     var NewCount = Count - 1;
                     $(".DislikesCount").html(NewCount);
