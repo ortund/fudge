@@ -1,0 +1,18 @@
+Concept for user activity notifications
+=======================================
+An option will be added to each new thread that a user submits whether or not they want to receive notifications for the thread.
+
+Query: what about adding a user setting that determines whether or not the user wants to receive notifications. If yes, each new
+thread will forward notifications to the user about activity on it.
+
+Don't notify about the user replying to their own thread.
+Don't notify about replies to individual posts on a thread. This will get spammy.
+
+Procedure
+---------
+1. Create a new Notifications model { Id, ThreadId, Sender (UserId who replied), Date, Read (bool) }
+2. Add a new field to a Thread indicating that the author wishes to receive notifications.
+3. Add the field to the New Post view when the new post is not a reply to an existing thread.
+4. When posting a reply to a thread, evaluate if the thread has notifications enabled.
+4.1 If the thread has notifications enabled, write a new Notification to the Notifications table
+5. Each page load or postback needs to check notifications and update the user's list of unread notifications.
